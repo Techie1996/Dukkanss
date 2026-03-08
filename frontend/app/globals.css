@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 :root {
-  --bg-body: #f4f7fb;
+  --bg-body: #ecf5f0;
 }
 
 html,
@@ -12,7 +12,7 @@ body {
 }
 
 body {
-  @apply antialiased;
+  @apply antialiased bg-gradient-to-b from-[#f5fbf7] via-[var(--bg-body)] to-[#e3efe8];
 }
 
 a {
