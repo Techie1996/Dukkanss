@@ -1,0 +1,29 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg-body: #f4f7fb;
+}
+
+html,
+body {
+  @apply bg-[var(--bg-body)] text-slate-900;
+}
+
+body {
+  @apply antialiased;
+}
+
+a {
+  @apply transition-colors duration-200;
+}
+
+.container-wide {
+  @apply mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8;
+}
+
+.card {
+  @apply rounded-2xl bg-white shadow-soft transition-transform transition-shadow duration-300 hover:-translate-y-1 hover:shadow-lg;
+}
+
