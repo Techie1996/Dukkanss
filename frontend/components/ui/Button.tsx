@@ -1,6 +1,5 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { cva, type VariantProps } from "class-variance-authority";
 import React from "react";
 
@@ -37,15 +36,13 @@ type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> &
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ({ children, variant, size, className, asChild, ...props }, ref) => {
     return (
-      <motion.button
-        whileHover={{ y: -1 }}
-        whileTap={{ scale: 0.97 }}
-        className={buttonStyles({ variant, size, className })}
+      <button
         ref={ref}
-        {...(props as React.ComponentProps<typeof motion.button>)}
+        className={buttonStyles({ variant, size, className })}
+        {...props}
       >
         {children}
-      </motion.button>
+      </button>
     );
   }
 );
