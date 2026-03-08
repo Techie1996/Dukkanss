@@ -29,7 +29,7 @@ const ProductCard = ({ product }: Props) => {
   return (
     <motion.article
       whileHover={{ y: -6 }}
-      className="card flex flex-col overflow-hidden"
+      className="card group flex flex-col overflow-hidden bg-white"
     >
       <Link href={`/product/${product.slug}`} className="relative block">
         <div className="relative h-56 w-full overflow-hidden bg-[#f5f7fb] sm:h-64">

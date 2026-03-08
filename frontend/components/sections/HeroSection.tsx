@@ -66,17 +66,16 @@ const HeroSection = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="relative h-72 w-full md:h-80 lg:h-96"
+          className="relative aspect-[4/3] w-full overflow-hidden rounded-3xl bg-white shadow-soft md:aspect-square md:max-w-md lg:max-w-lg"
         >
-          <div className="absolute inset-6 rounded-[32px] bg-white shadow-soft" />
-          <div className="absolute inset-0 translate-x-3 translate-y-4 overflow-hidden rounded-[32px]">
-            <Image
-              src="https://picsum.photos/seed/dukaans-hero-groceries/1200/900"
-              alt="Curated Indian groceries and confectionery"
-              fill
-              className="object-cover"
-            />
-          </div>
+          <Image
+            src="https://picsum.photos/seed/dukaans-hero/800/800"
+            alt="Curated Indian groceries and confectionery"
+            fill
+            sizes="(min-width: 1024px) 512px, (min-width: 768px) 448px, 100vw"
+            className="object-cover"
+            priority
+          />
         </motion.div>
       </div>
     </section>

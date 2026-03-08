@@ -32,14 +32,11 @@ const ProductRailSection = async ({ title, subtitle, queryKey }: Props) => {
           ? "bundles"
           : "on-sale"
       }
-      className="container-wide space-y-6"
+      className="container-wide space-y-6 py-8"
     >
-      <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+      <div className="flex flex-col gap-1 sm:flex-row sm:items-end sm:justify-between">
         <div>
-          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-brand">
-            {queryKey.replace("-", " ")}
-          </p>
-          <h2 className="mt-1 text-xl font-semibold text-slate-900 sm:text-2xl">
+          <h2 className="text-xl font-semibold text-slate-900 sm:text-2xl">
             {title}
           </h2>
           {subtitle && (

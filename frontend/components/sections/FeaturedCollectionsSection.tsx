@@ -4,7 +4,7 @@ import { collections } from "@/lib/mockData";
 const FeaturedCollectionsSection = () => {
 
   return (
-    <section className="container-wide space-y-6">
+    <section className="container-wide space-y-6 py-8">
       <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
         <div>
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-brand">

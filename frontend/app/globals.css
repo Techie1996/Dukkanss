@@ -6,17 +6,19 @@
   --bg-body: #ecf5f0;
 }
 
+@layer base {
+  a {
+    @apply text-slate-800 no-underline transition-colors duration-200 hover:text-brand;
+  }
+}
+
 html,
 body {
   @apply bg-[var(--bg-body)] text-slate-900;
 }
 
 body {
-  @apply antialiased bg-gradient-to-b from-[#f5fbf7] via-[var(--bg-body)] to-[#e3efe8];
-}
-
-a {
-  @apply transition-colors duration-200;
+  @apply antialiased;
 }
 
 .container-wide {
