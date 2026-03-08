@@ -24,8 +24,24 @@ const HeroSection = () => {
             Zero compromises on authenticity, maximum comfort for your weekly shop.
           </p>
           <div className="flex flex-wrap items-center gap-3">
-            <Button size="lg">Shop now</Button>
-            <button className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-600 hover:text-brand">
+            <Button
+              size="lg"
+              onClick={() =>
+                document
+                  .getElementById("bestsellers")
+                  ?.scrollIntoView({ behavior: "smooth" })
+              }
+            >
+              Shop now
+            </Button>
+            <button
+              className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-600 hover:text-brand"
+              onClick={() =>
+                document
+                  .getElementById("on-sale")
+                  ?.scrollIntoView({ behavior: "smooth" })
+              }
+            >
               View March offers
             </button>
           </div>

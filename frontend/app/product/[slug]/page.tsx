@@ -6,6 +6,7 @@ import ProductDetailsAccordion, {
   type DetailsSection
 } from "@/components/product/ProductDetailsAccordion";
 import { getProductBySlug, products, sampleReviews } from "@/lib/mockData";
+import { useCartStore } from "@/store/cartStore";
 
 type Params = {
   slug: string;
@@ -18,6 +19,7 @@ export async function generateStaticParams() {
 const ProductPage = ({ params }: { params: Params }) => {
   const product = getProductBySlug(params.slug);
   if (!product) return notFound();
+  const addToCart = useCartStore((s) => s.addItem);
 
   const detailSections: DetailsSection[] = [
     {
@@ -104,7 +106,19 @@ const ProductPage = ({ params }: { params: Params }) => {
 
             <div className="flex items-center gap-4">
               <QuantitySelector initialValue={1} />
-              <Button className="flex-1 justify-center text-xs uppercase tracking-[0.18em]">
+              <Button
+                className="flex-1 justify-center text-xs uppercase tracking-[0.18em]"
+                onClick={() =>
+                  addToCart({
+                    productId: product._id,
+                    title: product.title,
+                    slug: product.slug,
+                    price: product.price,
+                    image: product.images[0] ?? "",
+                    quantity: 1
+                  })
+                }
+              >
                 Add to cart
               </Button>
             </div>

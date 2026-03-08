@@ -22,7 +22,18 @@ const ProductRailSection = async ({ title, subtitle, queryKey }: Props) => {
   const products = await getProducts(queryKey);
 
   return (
-    <section className="container-wide space-y-6">
+    <section
+      id={
+        queryKey === "best-sellers"
+          ? "bestsellers"
+          : queryKey === "new-arrivals"
+          ? "new-arrivals"
+          : queryKey === "featured"
+          ? "bundles"
+          : "on-sale"
+      }
+      className="container-wide space-y-6"
+    >
       <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
         <div>
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-brand">
