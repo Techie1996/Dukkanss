@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { Menu, X, ShoppingBag, MapPin, User2 } from "lucide-react";
@@ -16,10 +17,18 @@ const mainMenuLinks = [
 ];
 
 const Navbar = () => {
+  const router = useRouter();
+  const [searchQuery, setSearchQuery] = useState("");
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
   const [collections, setCollections] = useState(mockCollections);
   const { items, toggleCart } = useCartStore();
+
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    const q = searchQuery.trim();
+    router.push(q ? `/search?q=${encodeURIComponent(q)}` : "/collections/bestsellers");
+  };
 
   useEffect(() => {
     const onScroll = () => setIsScrolled(window.scrollY > 10);
@@ -42,21 +51,27 @@ const Navbar = () => {
               Dukaans
             </span>
           </Link>
-          <div className="hidden flex-1 items-center gap-4 lg:flex">
+          <form
+            onSubmit={handleSearch}
+            className="hidden flex-1 lg:block"
+          >
             <div className="relative flex-1">
               <input
                 type="text"
+                name="q"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search for products you want"
                 className="h-10 w-full rounded-full border border-slate-200 bg-white px-4 pr-24 text-sm outline-none ring-brand focus:ring-1"
               />
-              <Link
-                href="/collections/bestsellers"
+              <button
+                type="submit"
                 className="absolute right-1 top-1 flex h-8 items-center rounded-full bg-brand px-4 text-xs font-semibold uppercase tracking-[0.18em] text-white"
               >
                 Search
-              </Link>
+              </button>
             </div>
-          </div>
+          </form>
         </div>
 
         <div className="flex items-center gap-3">

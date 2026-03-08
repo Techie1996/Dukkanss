@@ -1,9 +1,12 @@
 import { notFound } from "next/navigation";
+import type { Metadata } from "next";
 import ProductGallery from "@/components/product/ProductGallery";
+import ProductBadges from "@/components/product/ProductBadges";
 import ProductDetailsAccordion, {
   type DetailsSection
 } from "@/components/product/ProductDetailsAccordion";
 import ProductPurchasePanel from "@/components/product/ProductPurchasePanel";
+import ProductActions from "@/components/product/ProductActions";
 import { getProductBySlug, products, sampleReviews } from "@/lib/mockData";
 
 type Params = {
@@ -12,6 +15,31 @@ type Params = {
 
 export async function generateStaticParams() {
   return products.map((p) => ({ slug: p.slug }));
+}
+
+export async function generateMetadata({
+  params
+}: {
+  params: Params;
+}): Promise<Metadata> {
+  const product = getProductBySlug(params.slug);
+  if (!product) return {};
+  const image = product.images?.[0] ?? "https://picsum.photos/seed/dukaans-og/1200/630";
+  return {
+    title: `${product.title} | Dukaans`,
+    description: product.description,
+    openGraph: {
+      title: product.title,
+      description: product.description,
+      images: [{ url: image, width: 1200, height: 630, alt: product.title }]
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: product.title,
+      description: product.description,
+      images: [image]
+    }
+  };
 }
 
 const ProductPage = ({ params }: { params: Params }) => {
@@ -76,37 +104,33 @@ const ProductPage = ({ params }: { params: Params }) => {
                   </>
                 )}
               </div>
-              {product.badges && product.badges.length > 0 && (
-                <div className="mt-3 flex flex-wrap gap-2">
-                  {product.badges.map((badge) => (
-                    <span
-                      key={badge}
-                      className="inline-flex items-center rounded-full bg-accent-soft px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-brand"
-                    >
-                      {badge}
-                    </span>
-                  ))}
-                </div>
-              )}
+            </div>
+
+            <ProductBadges badges={product.badges ?? []} />
+
+            <div className="space-y-2 text-sm text-slate-700">
+              <p>{product.description}</p>
             </div>
 
             <ProductPurchasePanel product={product} />
 
-            <div className="space-y-2 text-sm text-slate-700">
-              <p>{product.description}</p>
+            <ProductActions
+              title={product.title}
+              url={`/product/${product.slug}`}
+            />
+
+            <div className="pt-4">
+              <h2 className="mb-3 text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
+                Product details
+              </h2>
+              <ProductDetailsAccordion sections={detailSections} />
             </div>
           </div>
         </div>
       </section>
 
-      <section className="container-wide grid gap-8 md:grid-cols-[minmax(0,1.6fr)_minmax(0,1.2fr)]">
-        <div className="space-y-3">
-          <h2 className="text-sm font-semibold uppercase tracking-[0.18em] text-slate-500">
-            Product details
-          </h2>
-          <ProductDetailsAccordion sections={detailSections} />
-        </div>
-        <div className="space-y-4">
+      <section className="container-wide">
+        <div className="grid gap-8 md:grid-cols-2 lg:max-w-2xl">
           <div className="space-y-3 rounded-2xl bg-white p-4 shadow-soft text-sm text-slate-700">
             <p className="font-semibold text-slate-900">Delivery info</p>
             <p>Orders dispatch within 1–2 working days.</p>

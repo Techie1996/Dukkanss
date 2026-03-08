@@ -27,6 +27,14 @@ export const collections: Collection[] = [
   }
 ];
 
+const productImages = (seed: string) => [
+  `https://picsum.photos/seed/${seed}-1/900/900`,
+  `https://picsum.photos/seed/${seed}-2/900/900`,
+  `https://picsum.photos/seed/${seed}-3/900/900`,
+  `https://picsum.photos/seed/${seed}-4/900/900`,
+  `https://picsum.photos/seed/${seed}-5/900/900`
+];
+
 export const products: Product[] = [
   {
     _id: "p1",
@@ -35,11 +43,11 @@ export const products: Product[] = [
     description:
       "Versatile pantry essential, carefully cleaned and processed for a consistent, high-quality result every time.",
     price: 1.99,
-    images: ["https://picsum.photos/seed/dukaans-peas/900/900"],
+    images: productImages("dukaans-peas"),
     collection: "pulses-lentils",
     rating: 4.9,
     reviewsCount: 128,
-    badges: ["LOWEST PRICE"]
+    badges: ["LOWEST PRICE", "BEST SELLER", "FRESH"]
   },
   {
     _id: "p2",
@@ -48,7 +56,7 @@ export const products: Product[] = [
     description:
       "Premium whole urad dal for creamy dals, stews and South Indian delicacies.",
     price: 3.49,
-    images: ["https://picsum.photos/seed/dukaans-urad/900/900"],
+    images: productImages("dukaans-urad"),
     collection: "pulses-lentils",
     rating: 4.8,
     reviewsCount: 96,
@@ -61,7 +69,7 @@ export const products: Product[] = [
     description:
       "Light, homestyle poha in a convenient cup. Just add hot water and enjoy.",
     price: 4.16,
-    images: ["https://picsum.photos/seed/dukaans-poha/900/900"],
+    images: productImages("dukaans-poha"),
     collection: "ready-to-eat",
     rating: 4.7,
     reviewsCount: 61,
@@ -87,11 +95,11 @@ export const products: Product[] = [
     description:
       "Crisp, golden potato wafers with a clean salted finish. Perfect tea-time partner.",
     price: 0.89,
-    images: ["https://picsum.photos/seed/dukaans-chips/900/900"],
+    images: productImages("dukaans-chips"),
     collection: "snacks-namkeen",
     rating: 4.6,
     reviewsCount: 88,
-    badges: ["TRENDING"]
+    badges: ["TRENDING", "BEST SELLER", "NEW"]
   },
   {
     _id: "p6",
@@ -100,7 +108,7 @@ export const products: Product[] = [
     description:
       "Classic diamond-cut kaju katli made from premium cashews. Ideal for gifting.",
     price: 11.99,
-    images: ["https://picsum.photos/seed/dukaans-kajukatli/900/900"],
+    images: productImages("dukaans-kajukatli"),
     collection: "sweets-mithai",
     rating: 4.9,
     reviewsCount: 203,
@@ -178,5 +186,21 @@ export const getProductsByCollectionSlug = (slug: string): Product[] => {
   if (slug === "bundles")
     return products.filter((p) => p.badges?.includes("BUNDLE"));
   return products.filter((p) => p.collection === slug);
+};
+
+export const searchProducts = (q: string): Product[] => {
+  if (!q || q.trim().length < 2) return [];
+  const lower = q.toLowerCase().trim();
+  return products.filter(
+    (p) =>
+      p.title.toLowerCase().includes(lower) ||
+      p.description.toLowerCase().includes(lower)
+  );
+};
+
+export const searchCollections = (q: string) => {
+  if (!q || q.trim().length < 2) return [];
+  const lower = q.toLowerCase().trim();
+  return navCollections.filter((c) => c.title.toLowerCase().includes(lower));
 };
 

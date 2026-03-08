@@ -19,10 +19,36 @@ const display = Playfair_Display({
   display: "swap"
 });
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://dukaans.vercel.app";
+
 export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
+  icons: { icon: "/favicon.svg" },
   title: "Dukaans – Premium Indian Grocery Online",
   description:
-    "Shop curated Indian groceries with fast delivery across Europe. A premium ecommerce experience inspired by Shopify storefronts."
+    "Shop curated Indian groceries with fast delivery across Europe. A premium ecommerce experience inspired by Shopify storefronts.",
+  openGraph: {
+    title: "Dukaans – Europe's Premium Indian Grocery Store",
+    description: "Shop 250+ trusted Indian brands. Fast delivery across Europe.",
+    url: siteUrl,
+    siteName: "Dukaans",
+    images: [
+      {
+        url: "https://picsum.photos/seed/dukaans-og/1200/630",
+        width: 1200,
+        height: 630,
+        alt: "Dukaans – Premium Indian Grocery"
+      }
+    ],
+    locale: "en_EU",
+    type: "website"
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Dukaans – Europe's Premium Indian Grocery",
+    description: "Shop 250+ trusted Indian brands. Fast delivery across Europe.",
+    images: ["https://picsum.photos/seed/dukaans-og/1200/630"]
+  }
 };
 
 export default function RootLayout({

@@ -5,9 +5,11 @@ import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 
 const GALLERY_PLACEHOLDERS = [
-  "https://picsum.photos/seed/dukaans-gallery-1/900/900",
-  "https://picsum.photos/seed/dukaans-gallery-2/900/900",
-  "https://picsum.photos/seed/dukaans-gallery-3/900/900"
+  "https://picsum.photos/seed/dukaans-g1/900/900",
+  "https://picsum.photos/seed/dukaans-g2/900/900",
+  "https://picsum.photos/seed/dukaans-g3/900/900",
+  "https://picsum.photos/seed/dukaans-g4/900/900",
+  "https://picsum.photos/seed/dukaans-g5/900/900"
 ];
 
 type Props = {
