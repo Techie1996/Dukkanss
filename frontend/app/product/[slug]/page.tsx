@@ -51,7 +51,7 @@ const ProductPage = ({ params }: { params: Params }) => {
             </div>
 
             <div className="flex items-center gap-4">
-              <QuantitySelector value={1} onChange={() => {}} />
+              <QuantitySelector initialValue={1} />
               <Button className="flex-1 justify-center text-xs uppercase tracking-[0.18em]">
                 Add to cart
               </Button>

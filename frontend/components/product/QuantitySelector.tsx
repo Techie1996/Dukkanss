@@ -1,16 +1,26 @@
 "use client";
 
+import { useState } from "react";
+
 type Props = {
-  value: number;
-  onChange: (value: number) => void;
+  initialValue?: number;
+  onChange?: (value: number) => void;
   min?: number;
   max?: number;
 };
 
-const QuantitySelector = ({ value, onChange, min = 1, max = 99 }: Props) => {
+const QuantitySelector = ({
+  initialValue = 1,
+  onChange,
+  min = 1,
+  max = 99
+}: Props) => {
+  const [value, setValue] = useState(initialValue);
+
   const handleChange = (next: number) => {
     if (next < min || next > max) return;
-    onChange(next);
+    setValue(next);
+    if (onChange) onChange(next);
   };
 
   return (
