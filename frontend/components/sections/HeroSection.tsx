@@ -55,8 +55,8 @@ const HeroSection = () => {
           <div className="absolute inset-6 rounded-[32px] bg-white shadow-soft" />
           <div className="absolute inset-0 translate-x-3 translate-y-4 overflow-hidden rounded-[32px]">
             <Image
-              src="/hero-desktop-placeholder.jpg"
-              alt="Dukaans hero"
+              src="https://picsum.photos/seed/dukaans-hero-groceries/1200/900"
+              alt="Curated Indian groceries and confectionery"
               fill
               className="object-cover"
             />

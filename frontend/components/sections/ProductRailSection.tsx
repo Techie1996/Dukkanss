@@ -1,6 +1,10 @@
 import ProductCard from "@/components/product/ProductCard";
 import type { Product } from "@/lib/types";
-import { apiFetch } from "@/lib/api";
+import {
+  homepageBestSellers,
+  homepageNewArrivals,
+  products
+} from "@/lib/mockData";
 
 type Props = {
   title: string;
@@ -9,17 +13,9 @@ type Props = {
 };
 
 async function getProducts(queryKey: Props["queryKey"]): Promise<Product[]> {
-  try {
-    const res = await apiFetch(`/api/products?tag=${queryKey}`, {
-      next: { revalidate: 0 }
-    });
-    if (!res.ok) return [];
-    const data = await res.json();
-    return data.products || data;
-  } catch {
-    // Backend might not be running yet; fall back to empty.
-    return [];
-  }
+  if (queryKey === "best-sellers") return homepageBestSellers;
+  if (queryKey === "new-arrivals") return homepageNewArrivals;
+  return products;
 }
 
 const ProductRailSection = async ({ title, subtitle, queryKey }: Props) => {

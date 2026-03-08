@@ -1,23 +1,7 @@
 import CollectionCard from "@/components/product/CollectionCard";
-import type { Collection } from "@/lib/types";
-import { apiFetch } from "@/lib/api";
+import { collections } from "@/lib/mockData";
 
-async function getCollections(): Promise<Collection[]> {
-  try {
-    const res = await apiFetch("/api/collections?limit=4", {
-      next: { revalidate: 0 }
-    });
-    if (!res.ok) return [];
-    const data = await res.json();
-    return data.collections || data;
-  } catch {
-    // Backend might not be running yet; fall back to empty.
-    return [];
-  }
-}
-
-const FeaturedCollectionsSection = async () => {
-  const collections = await getCollections();
+const FeaturedCollectionsSection = () => {
 
   return (
     <section className="container-wide space-y-6">
@@ -37,7 +21,7 @@ const FeaturedCollectionsSection = async () => {
         ))}
         {collections.length === 0 && (
           <p className="text-sm text-slate-500">
-            Collections will appear here once you add them in the admin dashboard.
+            Collections will appear here once you configure them.
           </p>
         )}
       </div>

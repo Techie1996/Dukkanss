@@ -6,38 +6,18 @@ import { useEffect, useState } from "react";
 import { Menu, X, ShoppingBag } from "lucide-react";
 import { useCartStore } from "@/store/cartStore";
 import Button from "@/components/ui/Button";
-import { apiFetch } from "@/lib/api";
-
-type NavCollection = {
-  _id: string;
-  title: string;
-  slug: string;
-};
+import { collections as mockCollections } from "@/lib/mockData";
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
-  const [collections, setCollections] = useState<NavCollection[]>([]);
+  const [collections, setCollections] = useState(mockCollections);
   const { items, toggleCart } = useCartStore();
 
   useEffect(() => {
     const onScroll = () => setIsScrolled(window.scrollY > 10);
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
-  useEffect(() => {
-    const fetchCollections = async () => {
-      try {
-        const res = await apiFetch("/api/collections");
-        if (!res.ok) return;
-        const data = await res.json();
-        setCollections(data.collections || data);
-      } catch {
-        // ignore nav error
-      }
-    };
-    fetchCollections();
   }, []);
 
   const itemCount = items.reduce((sum, item) => sum + item.quantity, 0);

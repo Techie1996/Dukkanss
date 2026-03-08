@@ -5,12 +5,26 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import type { Product } from "@/lib/types";
 
+const PRODUCT_PLACEHOLDERS = [
+  "https://picsum.photos/seed/dukaans-biscuits/900/900",
+  "https://picsum.photos/seed/dukaans-chocolates/900/900",
+  "https://picsum.photos/seed/dukaans-namkeen/900/900",
+  "https://picsum.photos/seed/dukaans-sweets-box/900/900"
+];
+
 type Props = {
   product: Product;
 };
 
 const ProductCard = ({ product }: Props) => {
-  const primaryImage = product.images?.[0];
+  const primaryImageFromData = product.images?.[0];
+  const fallbackIndex =
+    Math.abs((product.slug || product.title || "product").length) %
+    PRODUCT_PLACEHOLDERS.length;
+  const primaryImage =
+    primaryImageFromData ||
+    PRODUCT_PLACEHOLDERS[fallbackIndex] ||
+    PRODUCT_PLACEHOLDERS[0];
 
   return (
     <motion.article
