@@ -135,12 +135,48 @@ export const sampleReviews: Review[] = [
   }
 ];
 
+/** Virtual collections for nav (bestsellers, new-arrivals, etc.) */
+export const navCollections = [
+  ...collections,
+  {
+    _id: "nav-bestsellers",
+    title: "Bestsellers",
+    slug: "bestsellers",
+    image: "https://picsum.photos/seed/dukaans-bestsellers/800/600"
+  },
+  {
+    _id: "nav-new-arrivals",
+    title: "New Arrivals",
+    slug: "new-arrivals",
+    image: "https://picsum.photos/seed/dukaans-new/800/600"
+  },
+  {
+    _id: "nav-on-sale",
+    title: "On Sale",
+    slug: "on-sale",
+    image: "https://picsum.photos/seed/dukaans-sale/800/600"
+  },
+  {
+    _id: "nav-bundles",
+    title: "Bundles",
+    slug: "bundles",
+    image: "https://picsum.photos/seed/dukaans-bundles/800/600"
+  }
+];
+
 export const getCollectionBySlug = (slug: string) =>
-  collections.find((c) => c.slug === slug);
+  navCollections.find((c) => c.slug === slug);
 
 export const getProductBySlug = (slug: string) =>
   products.find((p) => p.slug === slug);
 
-export const getProductsByCollectionSlug = (slug: string) =>
-  products.filter((p) => p.collection === slug);
+export const getProductsByCollectionSlug = (slug: string): Product[] => {
+  if (slug === "bestsellers") return homepageBestSellers;
+  if (slug === "new-arrivals") return homepageNewArrivals;
+  if (slug === "on-sale")
+    return products.filter((p) => p.badges?.some((b) => b.includes("% OFF")));
+  if (slug === "bundles")
+    return products.filter((p) => p.badges?.includes("BUNDLE"));
+  return products.filter((p) => p.collection === slug);
+};
 

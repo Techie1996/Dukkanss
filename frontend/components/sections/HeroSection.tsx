@@ -1,7 +1,7 @@
- "use client";
+"use client";
 
 import Image from "next/image";
-import Button from "@/components/ui/Button";
+import Link from "next/link";
 import { motion } from "framer-motion";
 
 const HeroSection = () => {
@@ -24,26 +24,18 @@ const HeroSection = () => {
             Zero compromises on authenticity, maximum comfort for your weekly shop.
           </p>
           <div className="flex flex-wrap items-center gap-3">
-            <Button
-              size="lg"
-              onClick={() =>
-                document
-                  .getElementById("bestsellers")
-                  ?.scrollIntoView({ behavior: "smooth" })
-              }
+            <Link
+              href="/collections/bestsellers"
+              className="inline-flex items-center justify-center rounded-full bg-brand px-8 py-3.5 text-base font-semibold text-white transition-colors hover:bg-brand-dark"
             >
               Shop now
-            </Button>
-            <button
+            </Link>
+            <Link
+              href="/collections/on-sale"
               className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-600 hover:text-brand"
-              onClick={() =>
-                document
-                  .getElementById("on-sale")
-                  ?.scrollIntoView({ behavior: "smooth" })
-              }
             >
               View March offers
-            </button>
+            </Link>
           </div>
           <div className="mt-4 flex flex-wrap gap-6 text-xs text-slate-600">
             <div>

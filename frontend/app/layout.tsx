@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Plus_Jakarta_Sans, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
+import PromoBanner from "@/components/layout/PromoBanner";
+import CategoryIconsStrip from "@/components/layout/CategoryIconsStrip";
 import Footer from "@/components/layout/Footer";
 import CartDrawer from "@/components/cart/CartDrawer";
 
@@ -32,9 +34,15 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${sans.variable} ${display.variable} font-sans`}>
         <div className="flex min-h-screen flex-col bg-[var(--bg-body)]">
-          <Navbar />
+          <div className="sticky top-0 z-40">
+            <PromoBanner />
+            <Navbar />
+          </div>
           <CartDrawer />
-          <main className="flex-1 pt-20">{children}</main>
+          <main className="flex-1">
+            <CategoryIconsStrip />
+            {children}
+          </main>
           <Footer />
         </div>
       </body>

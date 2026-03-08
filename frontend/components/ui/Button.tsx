@@ -35,14 +35,14 @@ type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> &
   };
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ children, variant, size, className, ...props }, ref) => {
+  ({ children, variant, size, className, asChild, ...props }, ref) => {
     return (
       <motion.button
         whileHover={{ y: -1 }}
         whileTap={{ scale: 0.97 }}
         className={buttonStyles({ variant, size, className })}
         ref={ref}
-        {...props}
+        {...(props as React.ComponentProps<typeof motion.button>)}
       >
         {children}
       </motion.button>

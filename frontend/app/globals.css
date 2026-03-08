@@ -29,3 +29,11 @@ body {
   @apply rounded-2xl bg-white shadow-soft transition-transform transition-shadow duration-300 hover:-translate-y-1 hover:shadow-lg;
 }
 
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+

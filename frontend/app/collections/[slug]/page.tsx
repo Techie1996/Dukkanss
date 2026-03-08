@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 import CollectionCard from "@/components/product/CollectionCard";
 import ProductCard from "@/components/product/ProductCard";
 import {
-  collections,
+  navCollections,
   getCollectionBySlug,
   getProductsByCollectionSlug
 } from "@/lib/mockData";
@@ -12,7 +12,7 @@ type Params = {
 };
 
 export async function generateStaticParams() {
-  return collections.map((c) => ({ slug: c.slug }));
+  return navCollections.map((c) => ({ slug: c.slug }));
 }
 
 const CollectionPage = ({ params }: { params: Params }) => {

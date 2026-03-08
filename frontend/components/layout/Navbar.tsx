@@ -8,12 +8,11 @@ import { useCartStore } from "@/store/cartStore";
 import Button from "@/components/ui/Button";
 import { collections as mockCollections } from "@/lib/mockData";
 
-const mainMenu = [
-  { label: "Categories", href: "#categories" },
-  { label: "Bestsellers", href: "#bestsellers" },
-  { label: "New arrivals", href: "#new-arrivals" },
-  { label: "On sale", href: "#on-sale" },
-  { label: "Bundles", href: "#bundles" }
+const mainMenuLinks = [
+  { label: "Bestsellers", href: "/collections/bestsellers" },
+  { label: "New Arrivals", href: "/collections/new-arrivals" },
+  { label: "On Sale", href: "/collections/on-sale" },
+  { label: "Bundles", href: "/collections/bundles" }
 ];
 
 const Navbar = () => {
@@ -32,8 +31,8 @@ const Navbar = () => {
 
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-40 transition-all ${
-        isScrolled ? "bg-white/95 shadow-sm backdrop-blur" : "bg-transparent"
+      className={`sticky top-0 z-40 transition-all ${
+        isScrolled ? "bg-white/95 shadow-sm backdrop-blur" : "bg-white"
       }`}
     >
       <nav className="container-wide flex h-20 items-center justify-between gap-4">
@@ -50,16 +49,12 @@ const Navbar = () => {
                 placeholder="Search for products you want"
                 className="h-10 w-full rounded-full border border-slate-200 bg-white px-4 pr-24 text-sm outline-none ring-brand focus:ring-1"
               />
-              <button
+              <Link
+                href="/collections/bestsellers"
                 className="absolute right-1 top-1 flex h-8 items-center rounded-full bg-brand px-4 text-xs font-semibold uppercase tracking-[0.18em] text-white"
-                onClick={() =>
-                  document
-                    .getElementById("bestsellers")
-                    ?.scrollIntoView({ behavior: "smooth" })
-                }
               >
                 Search
-              </button>
+              </Link>
             </div>
           </div>
         </div>
@@ -116,9 +111,18 @@ const Navbar = () => {
               <Link href="/" onClick={() => setIsMobileOpen(false)}>
                 Home
               </Link>
+              {mainMenuLinks.map((item) => (
+                <Link
+                  key={item.label}
+                  href={item.href}
+                  onClick={() => setIsMobileOpen(false)}
+                >
+                  {item.label}
+                </Link>
+              ))}
               <div>
                 <p className="mb-1 text-xs uppercase tracking-[0.18em] text-slate-400">
-                  Collections
+                  Categories
                 </p>
                 <div className="flex flex-wrap gap-2">
                   {collections.map((c) => (
@@ -133,12 +137,6 @@ const Navbar = () => {
                   ))}
                 </div>
               </div>
-              <Link href="/about" onClick={() => setIsMobileOpen(false)}>
-                About
-              </Link>
-              <Link href="/contact" onClick={() => setIsMobileOpen(false)}>
-                Contact
-              </Link>
             </div>
           </motion.div>
         )}
@@ -146,24 +144,37 @@ const Navbar = () => {
       <div className="hidden border-t border-slate-100 bg-white/95 lg:block">
         <div className="container-wide flex h-11 items-center justify-between text-xs font-medium text-slate-700">
           <div className="flex items-center gap-5">
-            {mainMenu.map((item) => (
-              <button
+            <div className="group relative">
+              <button className="inline-flex items-center gap-1 hover:text-brand">
+                Categories
+                <span className="text-[10px]">▼</span>
+              </button>
+              <div className="invisible absolute left-0 top-full z-30 mt-1 w-56 rounded-xl border border-slate-100 bg-white py-2 shadow-lg opacity-0 transition-all group-hover:visible group-hover:opacity-100">
+                {collections.map((c) => (
+                  <Link
+                    key={c._id}
+                    href={`/collections/${c.slug}`}
+                    className="block px-4 py-2 text-sm text-slate-700 hover:bg-brand-light hover:text-brand"
+                  >
+                    {c.title}
+                  </Link>
+                ))}
+              </div>
+            </div>
+            {mainMenuLinks.map((item) => (
+              <Link
                 key={item.label}
+                href={item.href}
                 className="inline-flex items-center gap-1 hover:text-brand"
-                onClick={() =>
-                  item.href.startsWith("#")
-                    ? document
-                        .getElementById(item.href.slice(1))
-                        ?.scrollIntoView({ behavior: "smooth" })
-                    : null
-                }
               >
                 {item.label}
-              </button>
+              </Link>
             ))}
           </div>
           <div className="flex items-center gap-4 text-[11px] text-slate-500">
-            <span>Lowest price deals</span>
+            <Link href="/collections/on-sale" className="hover:text-brand">
+              Lowest price deals
+            </Link>
             <span>Fast European delivery</span>
           </div>
         </div>
